@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>On YouTube</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="top-bar">
+      <h1>On YouTube</h1>
+
+      <div class="filters">
+        <button data-lang="ALL" class="active">ALL</button>
+
+        <button data-lang="ENG">ENG</button>
+
+        <button data-lang="HINDI">हिन्दी</button>
+      </div>
+    </div>
+
+    <div class="categories-container">
+      <button class="cat-scroll-btn left">‹</button>
+      <div class="categories"></div>
+      <button class="cat-scroll-btn right">›</button>
+    </div>
+
+    <div class="sort-bar">
+      <div class="sort-left">
+        <button data-sort="latest">Latest</button>
+        <button data-sort="views">Most Viewed</button>
+        <button data-sort="oldest">Oldest</button>
+      </div>
+
+      <div class="year-dropdown">
+        <button id="yearBtn" class="year-btn">Year</button>
+        <div id="yearMenu" class="year-menu"></div>
+      </div>
+    </div>
+
+    <div class="video-grid" id="videoGrid"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
