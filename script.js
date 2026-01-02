@@ -11,6 +11,8 @@ const state = {
   year: "ALL",
 };
 
+/* ---------------- YEAR DROPDOWN ---------------- */
+
 const yearBtn = document.getElementById("yearBtn");
 const yearMenu = document.getElementById("yearMenu");
 
@@ -41,6 +43,8 @@ document.addEventListener("click", () => {
   yearMenu.classList.remove("show");
 });
 
+/* ---------------- CATEGORIES ---------------- */
+
 async function fetchCategories() {
   const res = await fetch(CATEGORY_API);
   const data = (await res.json()).categories;
@@ -68,7 +72,12 @@ async function fetchCategories() {
     };
     container.appendChild(btn);
   });
+
+  // IMPORTANT: update scroll buttons after render
+  setTimeout(updateCatScrollButtons, 0);
 }
+
+/* ---------------- VIDEOS ---------------- */
 
 async function fetchVideos() {
   const params = new URLSearchParams({
@@ -90,18 +99,23 @@ async function fetchVideos() {
 
 function applyClientSideFilters() {
   let list = [...videos];
+
   if (state.year !== "ALL") {
     list = list.filter(
       (v) =>
-        v.publishedAt && new Date(v.publishedAt).getFullYear() == state.year
+        v.publishedAt &&
+        new Date(v.publishedAt).getFullYear() == state.year
     );
   }
+
   if (state.sort === "views") {
     list.sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
   }
+
   if (state.sort === "oldest") {
     list.sort((a, b) => new Date(a.publishedAt) - new Date(b.publishedAt));
   }
+
   visibleVideos = list;
   renderVideos();
 }
@@ -152,6 +166,8 @@ function renderVideos() {
   });
 }
 
+/* ---------------- HELPERS ---------------- */
+
 function formatViews(count) {
   if (!count || count < 1000) return count || 0;
   if (count < 1_000_000)
@@ -174,6 +190,8 @@ function setActive(btn, selector) {
   btn.classList.add("active");
 }
 
+/* ---------------- FILTER BUTTONS ---------------- */
+
 document.querySelectorAll("[data-lang]").forEach((btn) => {
   btn.onclick = () => {
     state.language = btn.dataset.lang;
@@ -190,14 +208,42 @@ document.querySelectorAll("[data-sort]").forEach((btn) => {
   };
 });
 
+/* ---------------- CATEGORY SCROLL BUTTONS (FIX) ---------------- */
+
 const categories = document.querySelector(".categories");
-const container = document.querySelector(".categories-container");
 const leftBtn = document.querySelector(".cat-scroll-btn.left");
 const rightBtn = document.querySelector(".cat-scroll-btn.right");
 
-leftBtn.onclick = () => categories.scrollBy({ left: -200, behavior: "smooth" });
+leftBtn.onclick = () =>
+  categories.scrollBy({ left: -200, behavior: "smooth" });
 
-rightBtn.onclick = () => categories.scrollBy({ left: 200, behavior: "smooth" });
+rightBtn.onclick = () =>
+  categories.scrollBy({ left: 200, behavior: "smooth" });
+
+function updateCatScrollButtons() {
+  const canScroll =
+    categories.scrollWidth > categories.clientWidth;
+
+  if (!canScroll) {
+    leftBtn.style.display = "none";
+    rightBtn.style.display = "none";
+    return;
+  }
+
+  leftBtn.style.display =
+    categories.scrollLeft > 0 ? "block" : "none";
+
+  rightBtn.style.display =
+    categories.scrollLeft + categories.clientWidth <
+    categories.scrollWidth - 5
+      ? "block"
+      : "none";
+}
+
+categories.addEventListener("scroll", updateCatScrollButtons);
+window.addEventListener("resize", updateCatScrollButtons);
+
+/* ---------------- INIT ---------------- */
 
 fetchCategories();
 fetchVideos();
