@@ -193,7 +193,7 @@ body {
 .year-btn::after {
   content: "˅";
   margin-left: 4px;
-  font-size: 14px;
+  font-size: 16px;
   transition: transform 0.2s ease;
   display: inline-block;
 }
