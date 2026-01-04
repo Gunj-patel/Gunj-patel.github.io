@@ -27,7 +27,7 @@ body {
   gap: 10px;
   overflow-x: auto;
   white-space: nowrap;
-  padding-bottom: 10px;
+  padding-bottom: 4px;
   border-bottom: 1px solid #d0d3d6;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -67,12 +67,11 @@ body {
   right: 35px;
 }
 
-/* underline for active category */
+
 .categories button.active::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -11px;
   width: 100%;
   height: 2px;
   background-color: #000;
@@ -323,6 +322,9 @@ body {
     margin: 0;
     background: #fff;
   }
+  .cat-scroll-btn {
+    display: none !important;
+  }
 
   .top-bar {
     flex-direction: row;
@@ -336,7 +338,6 @@ body {
     margin: 0;
   }
 
-  /* Filters */
   .filters {
     align-self: flex-start;
     margin: 12px 0;
@@ -395,7 +396,7 @@ body {
     z-index: 1001;
   }
 
-  /* Year Dropdown */
+ 
   .year-dropdown {
     position: relative;
     display: inline-block;
@@ -410,8 +411,8 @@ body {
     font-size: 13px;
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 4px;
+    justify-content: center;
+    gap: 0px;
   }
 
   .year-menu {
@@ -492,7 +493,7 @@ body {
     height: 94px;
     object-fit: cover;
     flex-shrink: 0;
-    border-radius: 4px;
+    border-radius: 0px;
   }
 
   .video-info {

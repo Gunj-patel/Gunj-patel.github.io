@@ -11,7 +11,6 @@ const state = {
   year: "ALL",
 };
 
-/* ---------------- YEAR DROPDOWN ---------------- */
 
 const yearBtn = document.getElementById("yearBtn");
 const yearMenu = document.getElementById("yearMenu");
@@ -43,7 +42,6 @@ document.addEventListener("click", () => {
   yearMenu.classList.remove("show");
 });
 
-/* ---------------- CATEGORIES ---------------- */
 
 async function fetchCategories() {
   const res = await fetch(CATEGORY_API);
@@ -73,11 +71,10 @@ async function fetchCategories() {
     container.appendChild(btn);
   });
 
-  // IMPORTANT: update scroll buttons after render
   setTimeout(updateCatScrollButtons, 0);
 }
 
-/* ---------------- VIDEOS ---------------- */
+
 
 async function fetchVideos() {
   const params = new URLSearchParams({
@@ -166,7 +163,6 @@ function renderVideos() {
   });
 }
 
-/* ---------------- HELPERS ---------------- */
 
 function formatViews(count) {
   if (!count || count < 1000) return count || 0;
@@ -190,7 +186,6 @@ function setActive(btn, selector) {
   btn.classList.add("active");
 }
 
-/* ---------------- FILTER BUTTONS ---------------- */
 
 document.querySelectorAll("[data-lang]").forEach((btn) => {
   btn.onclick = () => {
@@ -208,7 +203,6 @@ document.querySelectorAll("[data-sort]").forEach((btn) => {
   };
 });
 
-/* ---------------- CATEGORY SCROLL BUTTONS (FIX) ---------------- */
 
 const categories = document.querySelector(".categories");
 const leftBtn = document.querySelector(".cat-scroll-btn.left");
@@ -243,7 +237,6 @@ function updateCatScrollButtons() {
 categories.addEventListener("scroll", updateCatScrollButtons);
 window.addEventListener("resize", updateCatScrollButtons);
 
-/* ---------------- INIT ---------------- */
 
 fetchCategories();
 fetchVideos();
